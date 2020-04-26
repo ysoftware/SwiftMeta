@@ -9,10 +9,15 @@
 import Foundation
 
 // @Incomplete issue warnings for 'file not found' errors?
-func readFile(of path: String) -> String? {
+func readFile(at path: String) -> (path: String, contents: String)? {
     let url = URL(fileURLWithPath: path, relativeTo: URL(string: "\\"))
     guard let contents = try? String(contentsOf: url, encoding: .utf8) else { return nil }
-    return contents
+    return (path, contents)
+}
+
+func write(to path: String, contents: String) {
+    let url = URL(fileURLWithPath: path, relativeTo: URL(string: "\\"))
+    try? contents.write(to: url, atomically: true, encoding: .utf8)
 }
 
 func getInputFilePaths() -> [String] {
@@ -58,6 +63,9 @@ func throwingCompile(string: String) throws -> String {
     // get the output
     let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
     let output = String(decoding: outputData, as: UTF8.self)
+    
+    // remove the file
+    try? FileManager.default.removeItem(atPath: url.path)
     
     return output
 }

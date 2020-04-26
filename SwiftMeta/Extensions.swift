@@ -27,3 +27,21 @@ extension String {
         }
     }
 }
+
+func getMetaMatches(string: String, path: String) -> [MatchDescriptor] {
+    
+    var array: [MatchDescriptor] = []
+    let range = NSRange(location: 0, length: string.utf16.count)
+    let regex = try! NSRegularExpression(pattern: Constants.Regex.Meta)
+    let results = regex.matches(in: string, options: [], range: range)
+    
+    results.forEach { match in
+        guard let range = Range(match.range(at: 1), in: string) else { return }
+        let location = match.range.location-1
+        let code = String(string[range])
+        let compiledCode = compile(string: wrapIntoFunction(code))
+        array.append(MatchDescriptor(location: location, path: path,
+                                     code: code, compiledCode: compiledCode))
+    }
+    return array
+}

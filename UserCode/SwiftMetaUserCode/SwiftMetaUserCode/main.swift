@@ -8,18 +8,8 @@
 
 import Foundation
 
-struct Vector3 {
-    
-    var x: Float
-    var y: Float
-    var z: Float
+/*meta
+return ["x", "y", "z"].reduce(into: "") {
+    $0 += "print(\"\($1)\")\n"
 }
-
-
-func printMembers(of type: Vector3) {
-    /*meta
-    return ["x", "y", "z"].reduce(into: "") {
-        $0 += "print(\"\($1)\")\n"
-    }
-    meta*/
-}
+meta*/

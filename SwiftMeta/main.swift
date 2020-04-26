@@ -8,10 +8,31 @@
 
 import Foundation
 
-getInputFilePaths()
-    .compactMap(readFile)
-    .joined()
-    .findMatches(regex: Constants.Regex.Meta, matchIndex: 1)
-    .map(wrapIntoFunction)
-    .map(compile)
-    .forEach { print($0) }
+struct MatchDescriptor {
+    
+    let location: Int
+    let path: String
+    let code: String
+    let compiledCode: String
+}
+
+let paths = getInputFilePaths()
+
+let files = paths.compactMap { readFile(at: $0) }
+let descriptors = files.map { getMetaMatches(string: $0.contents, path: $0.path) }.flatMap { $0 }
+
+descriptors.forEach { d in
+    
+    guard let (_, originalContents) = readFile(at: d.path) else { return }
+    
+    var newContents = originalContents
+    let index = originalContents.index(originalContents.startIndex, offsetBy: d.location)
+    newContents.insert(contentsOf: "\n" + d.compiledCode, at: index)
+    
+    // @Incomplete save original file
+    
+    write(to: d.path, contents: newContents)
+}
+
+
+// @Incomplete restore original file after compilation
