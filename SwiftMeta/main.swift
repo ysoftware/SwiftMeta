@@ -8,4 +8,8 @@
 
 import Foundation
 
-
+getInputFilePaths()
+    .compactMap(readFile)
+    .joined()
+    .findMatches(regex: Constants.Regex.Meta)
+    .forEach { print($0) }

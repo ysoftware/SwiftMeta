@@ -69,6 +69,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FD239AD2455A888007534A6 /* Build configuration list for PBXNativeTarget "SwiftMetaUserCode" */;
 			buildPhases = (
+				1FD239B02455ABF3007534A6 /* Swift Meta */,
 				1FD239A22455A888007534A6 /* Sources */,
 				1FD239A32455A888007534A6 /* Frameworks */,
 				1FD239A42455A888007534A6 /* CopyFiles */,
@@ -114,6 +115,28 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1FD239B02455ABF3007534A6 /* Swift Meta */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				/Users/yerokhin/Documents/Personal/SwiftMeta/UserCode/SwiftMetaUserCode/SwiftMetaUserCode/main.swift,
+			);
+			name = "Swift Meta";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/Users/yerokhin/Library/Developer/Xcode/DerivedData/SwiftMeta-dubrsqgdtldgtzgegnraemsynvme/Build/Products/Debug/SwiftMeta\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1FD239A22455A888007534A6 /* Sources */ = {
