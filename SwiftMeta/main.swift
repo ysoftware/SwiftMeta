@@ -11,5 +11,5 @@ import Foundation
 getInputFilePaths()
     .compactMap(readFile)
     .joined()
-    .findMatches(regex: Constants.Regex.Meta)
+    .findMatches(regex: Constants.Regex.Meta, matchIndex: 1)
     .forEach { print($0) }

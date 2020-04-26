@@ -15,6 +15,6 @@ enum Constants {
         static let InputFile = "^SCRIPT_INPUT_FILE_\\d*$"
         static let OutputFile = "^SCRIPT_OUTPUT_FILE_\\d*$"
         static let OneLineComment = "^\\/{2}.*"
-        static let Meta = "(?m)^\\s*\\/\\*meta[\\s\\S]*?\\s*meta\\*\\/"
+        static let Meta = "(?m)(?:^\\s*\\/\\*meta)([\\s\\S]*?\\s*)(?:meta\\*\\/)"
     }
 }

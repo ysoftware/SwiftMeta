@@ -15,11 +15,11 @@ struct Vector3 {
     var z: Float
 }
 
+
 func printMembers(of type: Vector3) {
     /*meta
-        return #members(Vector3).reduce("") {
-            $0 += "print(\"\($1)\")"
-        }
+    return #members(Vector3).reduce("") {
+        $0 += "print(\"\($1)\")"
     }
     meta*/
 }
