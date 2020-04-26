@@ -12,4 +12,6 @@ getInputFilePaths()
     .compactMap(readFile)
     .joined()
     .findMatches(regex: Constants.Regex.Meta, matchIndex: 1)
+    .map(wrapIntoFunction)
+    .map(compile)
     .forEach { print($0) }

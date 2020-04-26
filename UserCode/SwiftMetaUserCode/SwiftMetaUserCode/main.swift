@@ -18,8 +18,8 @@ struct Vector3 {
 
 func printMembers(of type: Vector3) {
     /*meta
-    return #members(Vector3).reduce("") {
-        $0 += "print(\"\($1)\")"
+    return ["x", "y", "z"].reduce(into: "") {
+        $0 += "print(\"\($1)\")\n"
     }
     meta*/
 }

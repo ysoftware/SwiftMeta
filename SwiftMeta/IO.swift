@@ -21,19 +21,43 @@ func getInputFilePaths() -> [String] {
         .map(\.value)
 }
 
-// @Safety do error checking
+func wrapIntoFunction(_ code: String) -> String {
+    let program = """
+    func run() -> String {
+    \(code)
+    }
+    print(run())
+    """
+    return program
+}
+
 func compile(string: String) -> String {
+    (try? throwingCompile(string: string)) ?? ""
+}
+
+// @Safety do error checking
+func throwingCompile(string: String) throws -> String {
+    
+    let path = FileManager.default.currentDirectoryPath
+    
+    // write file to disk
+    let url = URL(fileURLWithPath: path).appendingPathComponent("file.swift")
+    try string.write(to: url, atomically: true, encoding: .utf8)
+    
+    // setup
     let task = Process()
-    task.launchPath = "/usr/bin/swift"
-    let outpipe = Pipe()
-    let inpipe = Pipe()
-    inpipe.fileHandleForWriting.write(string.data(using: String.Encoding.utf8, allowLossyConversion: true)!)
-    task.standardInput = inpipe
-    task.standardOutput = outpipe
-    task.launch()
+    task.executableURL = URL(fileURLWithPath: "/usr/bin/swift")
+    task.arguments = [url.path]
+    let outputPipe = Pipe()
+    task.standardOutput = outputPipe
+    
+    // run swift
+    try task.run()
     task.waitUntilExit()
-    task.standardInput = Pipe()
-    let data = outpipe.fileHandleForReading.readDataToEndOfFile()
-    let output = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
+    
+    // get the output
+    let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
+    let output = String(decoding: outputData, as: UTF8.self)
+    
     return output
 }
