@@ -8,6 +8,15 @@
 
 import Foundation
 
+struct MatchDescriptor {
+    
+    var code: String
+    let range: Range<String.Index>
+    let path: String
+    var compiledCode: String?
+}
+
+
 struct Property {
     let name: String, type: String, isConstant: Bool
 }
@@ -20,7 +29,3 @@ struct Type {
         return "[" + members.map { value in "Property(name: \"\(value.name)\", type: \"\(value.type)\", isConstant: \(value.isConstant ? "true" : "false"))" }.joined(separator: ", ") + "]"
     }
 }
-
-// for s in #members(Vector3)
-// ->
-// for s in [Property(name: "x", type: "Float"), Property(name: "y", type: "Float"), Property(name: "z", type: "Float")]

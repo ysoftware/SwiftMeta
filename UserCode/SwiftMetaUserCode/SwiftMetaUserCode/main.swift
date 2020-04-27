@@ -8,10 +8,19 @@
 
 import Foundation
 
+struct Vector3 {
+    var x: Float
+    var y: Float
+    var z: Float
+}
+
+
+struct SOA_Vector3 {
 /*meta
     var string = ""
     for member in #member(Vector3) {
-        string += "\(member.isConstant ? "let" : "var") \(member.name): \(member.type)\n"
+        string += "\tvar \(member.name): [\(member.type)] = []\n"
     }
     return string
 meta*/
+}

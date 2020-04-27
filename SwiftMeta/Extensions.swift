@@ -41,9 +41,9 @@ func getMetaMatches(string: String, path: String) -> [MatchDescriptor] {
     
     results.forEach { match in
         guard let range = Range(match.range(at: 1), in: string) else { return }
-        let location = match.range.location-1
         let code = String(string[range])
-        array.append(MatchDescriptor(code: code, location: location, path: path, compiledCode: nil))
+        array.append(MatchDescriptor(code: code, range: Range(match.range, in: string)!,
+                                     path: path, compiledCode: nil))
     }
     return array
 }
@@ -68,9 +68,9 @@ func processDirectives(_ descriptor: MatchDescriptor) -> MatchDescriptor {
         updatedDescriptor.code.replaceSubrange(fullRange, with: printedOutMembers)
     }
     
-    print("preparing to compile body: ...")
-    print(updatedDescriptor.code)
-    print("----- \n\n\n")
+//    print("preparing to compile body: ...")
+//    print(updatedDescriptor.code)
+//    print("----- \n\n\n")
     updatedDescriptor.compiledCode = compile(string: wrapIntoFunction(updatedDescriptor.code))
     
     return updatedDescriptor
@@ -80,11 +80,10 @@ func writeChanges(_ descriptors: [MatchDescriptor]) {
     
     descriptors.forEach { d in
         guard let (_, originalContents) = readFile(at: d.path) else { return }
-        guard let compiledCode = d.compiledCode else { return }
+        guard let compiledCode = d.compiledCode?.trimmingCharacters(in: .newlines) else { return }
         
         var newContents = originalContents
-        let index = originalContents.index(originalContents.startIndex, offsetBy: d.location)
-        newContents.insert(contentsOf: "\n" + compiledCode, at: index)
+        newContents.replaceSubrange(d.range, with: compiledCode)
         
         // @Incomplete save changes
         

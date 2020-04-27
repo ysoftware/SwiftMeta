@@ -38,10 +38,9 @@ func wrapIntoFunction(_ code: String) -> String {
 }
 
 func compile(string: String) -> String {
-    print("compiling: ...")
-    print(string)
-    print("-----\n\n")
-    
+//    print("compiling: ...")
+//    print(string)
+//    print("-----\n\n")
     return (try? throwingCompile(string: string)) ?? ""
 }
 

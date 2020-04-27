@@ -8,14 +8,6 @@
 
 import Foundation
 
-struct MatchDescriptor {
-    
-    var code: String
-    let location: Int
-    let path: String
-    var compiledCode: String?
-}
-
 let paths = getInputFilePaths()
 let files = paths.compactMap { readFile(at: $0) }
 let descriptors = files.map { getMetaMatches(string: $0.contents, path: $0.path) }.flatMap { $0 }
