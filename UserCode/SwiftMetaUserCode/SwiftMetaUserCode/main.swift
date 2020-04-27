@@ -9,7 +9,9 @@
 import Foundation
 
 /*meta
-return ["x", "y", "z"].reduce(into: "") {
-    $0 += "print(\"\($1)\")\n"
-}
+    var string = ""
+    for member in #member(Vector3) {
+        string += "\(member.isConstant ? "let" : "var") \(member.name): \(member.type)\n"
+    }
+    return string
 meta*/

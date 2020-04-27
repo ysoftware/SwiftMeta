@@ -28,6 +28,7 @@ func getInputFilePaths() -> [String] {
 
 func wrapIntoFunction(_ code: String) -> String {
     let program = """
+    \(Constants.Code.types)
     func run() -> String {
     \(code)
     }
@@ -37,7 +38,11 @@ func wrapIntoFunction(_ code: String) -> String {
 }
 
 func compile(string: String) -> String {
-    (try? throwingCompile(string: string)) ?? ""
+    print("compiling: ...")
+    print(string)
+    print("-----\n\n")
+    
+    return (try? throwingCompile(string: string)) ?? ""
 }
 
 // @Safety do error checking
